@@ -81,6 +81,8 @@ def get_letter_from_user(word_dict, wrong_letters):
 def build_word_dict(word):
     word_dict = {}
     for letter in word:
+        if not letter.isalpha():
+            continue
         # keep track of any character a player might guess (alphabetic)
         word_dict[letter] = False
 
@@ -100,15 +102,16 @@ def is_word_guessed(word_dict):
 def build_game_board(word, word_dict):
     output_letters = []
     for elem in word:
-        if elem in word_dict:
+        # if elem in word_dict:
+        if elem in word_dict and not word_dict[elem]:
             # automatically add any character a player wouldn't be able to guess
-            output_letters += elem
+            output_letters += "_"
         elif word_dict[elem]:
             # add any letters the player has guessed
             output_letters += elem
-        else:
-            # add a blank for any letter not yet guessed
-            output_letters += "_"
+        # else:
+        #     # add a blank for any letter not yet guessed
+        #     output_letters += "_"
 
     return " ".join(output_letters)
 
